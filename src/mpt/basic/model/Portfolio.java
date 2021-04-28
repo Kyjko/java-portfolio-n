@@ -2,10 +2,7 @@ package mpt.basic.model;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class Portfolio {
 
@@ -46,6 +43,24 @@ public class Portfolio {
         }
     }
 
+    public Map<String, Double> getReturns() {
+        Map<String, Double> returns = new HashMap<>();
+        products.forEach(p -> {
+            returns.put(p.getName(), p.getPrice() / p.getOriginalPrice());
+        });
+
+        return returns;
+    }
+
+    public double getReturnOfProduct(String name) {
+        Product p = products.stream().filter(pr -> pr.getName().equals(name)).findFirst().orElse(null);
+        if(p != null) {
+            return p.getPrice() / p.getOriginalPrice();
+        } else {
+            return 0;
+        }
+    }
+
     public void update() {
         products.forEach(Product::updatePrice);
     }
@@ -56,7 +71,7 @@ public class Portfolio {
         PrintStream finalOut = out;
         finalOut.println("=== Products ===");
         products.forEach(p -> {
-            finalOut.println(p.getName() + " - " + p.getPrice());
+            finalOut.println(p.getName() + " - " + p.getPrice() + "\tReturn: " + getReturnOfProduct(p.getName()));
         });
     }
 
