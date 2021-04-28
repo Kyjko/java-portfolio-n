@@ -1,5 +1,8 @@
 package mpt.basic.graphics;
 
+import mpt.basic.model.Portfolio;
+
+import javax.sound.sampled.Port;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -11,8 +14,10 @@ public class Display extends Canvas {
     private boolean quit;
     private final int w, h;
     private JFrame f;
+    private final Portfolio portfolio;
 
-    public Display() {
+    public Display(Portfolio p) {
+        this.portfolio = p;
         f = new JFrame("Portfolio");
         this.w = 640;
         this.h = 640;
@@ -49,6 +54,10 @@ public class Display extends Canvas {
 
         g.setColor(Colors.backgroundColor);
         g.fillRect(0, 0, w, h);
+
+        portfolio.getProducts().forEach(p -> {
+            g.setColor(Colors.chartColor);
+        });
 
         g.dispose();
         bs.show();

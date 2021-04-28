@@ -14,7 +14,7 @@ public class Main {
         update(100, p);
         p.displayProducts();
 
-        Display display = new Display();
+        Display display = new Display(p);
     }
 
     public void update(int iters, Portfolio p) {
