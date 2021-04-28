@@ -38,7 +38,7 @@ public class Portfolio {
         clearProducts();
         for(int i = 0; i < num; i++) {
             String name = getSaltString(5);
-            Product p = new Product(name, new Random().nextDouble());
+            Product p = new Product(name, new Random().nextDouble(), new Random().nextDouble() * 2);
             products.add(p);
         }
     }
@@ -71,7 +71,7 @@ public class Portfolio {
         PrintStream finalOut = out;
         finalOut.println("=== Products ===");
         products.forEach(p -> {
-            finalOut.println(p.getName() + " - " + p.getPrice() + "\tReturn: " + getReturnOfProduct(p.getName()));
+            finalOut.println(p.getName() + " - " + p.getPrice() + "\tReturn: " + getReturnOfProduct(p.getName()) + " - (Volatility: " + p.getVolatility() + ")");
         });
     }
 

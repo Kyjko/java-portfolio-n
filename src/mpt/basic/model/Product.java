@@ -4,14 +4,16 @@ import java.util.Random;
 
 public class Product {
 
-    private String name;
+    private final String name;
     private double price;
-    private double originalPrice;
+    private final double originalPrice;
+    private final double volatility;
 
-    public Product(String name, double price) {
+    public Product(String name, double price, double volatility) {
         this.name = name;
         this.price = price;
         this.originalPrice = price;
+        this.volatility = volatility;
     }
 
     public String getName() {
@@ -23,11 +25,15 @@ public class Product {
     }
 
     public void updatePrice() {
-        double logY = new Random().nextGaussian();
+        double logY = new Random().nextGaussian() * getVolatility();
         price *= Math.pow(Math.E, logY);
     }
 
     public double getOriginalPrice() {
         return originalPrice;
+    }
+
+    public double getVolatility() {
+        return volatility;
     }
 }
